@@ -3,30 +3,33 @@
 @property는 같은 클래스에 속한 여러 속성에 재사용하지 못한다는 단점이 있다. 예를 들어, 학생들의 시험성적을 매긴다고 해보자.
 시험은 여러 과목으로 구성되어 있고 과목별 점수가 있다.
 '''
-# class Exam:
-# def __init__(self):
-# self._writing_grade = 0
-# self._math_grade = 0
-# @staticmethod
-# def _check_grade(value):
-# if not (0 <= value <= 100):
-# raise ValueError('Grade must be between 0 and 100')
+class Exam:
+    def __init__(self):
+        self._writing_grade = 0
+        self._math_grade = 0
+    
+    @staticmethod
+    def _check_grade(value):
+        if not (0 <= value <= 100):
+            raise ValueError('Grade must be between 0 and 100')
 
-# @property
-# def writing_grade(self):
-# return self._writing_grade
-# @writing_grade.setter
-# def writing_grade(self, value):
-# self._check_grade(value)
-# self._writing_grade = value
+    @property
+    def writing_grade(self):
+        return self._writing_grade
 
-# @property
-# def math_grade(self):
-# return self._math_grade
-# @math_grade.setter
-# def math_grade(self, value):
-# self._check_grade(value)
-# self._math_grade = value
+    @writing_grade.setter
+    def writing_grade(self, value):
+        self._check_grade(value)
+        self._writing_grade = value
+
+    @property
+    def math_grade(self):
+        return self._math_grade
+   
+    @math_grade.setter
+    def math_grade(self, value):
+        self._check_grade(value)
+        self._math_grade = value
 '''
 각 속성에 @property와 _check_grade를 반복적으로 작성해야 하기 때문에 코드가 금방 장황해진다. 파이썬에서 이런 작업을 할 때 더 좋은 방법은 디스크립터를 사용하는 것이다.
 디스크립터 클래스는 반복 코드 없이도 성적 검증을 재사용할 수 있게 해주는 __get__과 __set__메소드르 제공한다. 이런 목적으로는 믹스인보다 디스크립터가 좋은 방법이다.

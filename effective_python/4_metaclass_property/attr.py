@@ -58,7 +58,7 @@ foo속성은 원래는 인스턴스 딕셔너리에 없으므로 처음에는 __
 # class ValidatingDB:
 #     def __init__(self):
 #         self.exists = 5
-    
+
 #     def __getattribute__(self, name): # name of attribute
 #         print(f'Called __getattribute__{name}')
 #         try:
@@ -93,10 +93,12 @@ Unlike __getattr__ and __getattribute___, there's no need for two separate metho
 The __setattr__ method is always called every time an attribute is assigned on an instance.
 '''
 
+
 class LoggingSavingDB:
     def __setattr__(self, name, value):
         print(f'called __setattr__{name}: {value}')
         super().__setattr__(name, value)
+
 
 data = LoggingSavingDB()
 data.row = 1
@@ -108,6 +110,7 @@ even when I may not want that to happen. For example, I access attribute on obje
 self._data actually calls __getattribtue__ method recursively until it reaches its stack limit.
 '''
 
+
 class BrokenDictionaryDB:
     def __init__(self, data):
         self._data = {}
@@ -115,21 +118,25 @@ class BrokenDictionaryDB:
     def __getattribute__(self, name):
         return self._data[name]
 
+
 '''
 The solution is to use the super().__getattribute__ method on your instance to fetch values
 from the instance attribute dictionary. It avoids the recursion.
 '''
 
+
 class DictionaryDB:
     def __init__(self, data):
         self._data = data
-    
-    def __getattribute__(self, name): # object 부모 클래스의 __getattribute__를 오버라이딩한다.
-        data_dict = super().__getattribute__('_data') # 속성을 직접 접근하지 않고, super()를 써서 object 부모 클래스 __getattribute__를 호출한다. 
+
+    def __getattribute__(self, name):  # object 부모 클래스의 __getattribute__를 오버라이딩한다.
+        data_dict = super().__getattribute__('_data')
+        # 속성을 직접 접근하지 않고, super()를 써서 object 부모 클래스 __getattribute__를 호출한다.
         return data_dict[name]
 
-    def __setattr__(self, name, value):)
+    def __setattr__(self, name, value):
         super().__setattr__(name, value)
+
 
 db = DictionaryDB({'data': 1})
 print(db.data)

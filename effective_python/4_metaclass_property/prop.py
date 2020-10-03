@@ -43,3 +43,35 @@ self.ohms 할당문에서 @ohms.setter 메소드가 호출되어 객체 생성�
 또한, 모듈을 동적으로 임포트하거나, 느린 헬퍼 함수를 실행하거나, 비용이 많이 드는 쿼리를 수행하지 말아야한다.
 이는 최소 놀람 원칙에 어긋난다. 더 복잡하고 느린 작업은 일반 메소들 구현하자.
 '''
+
+# 30. 속성을 리펙토링하는 대신 @property를 고려하자.
+
+from datetime import datetime, timedelta
+
+class Bucket:
+    def __init__(self, period):
+        self.period_delta = timedelta(seconds=period)
+        self.reset_time = datetime.now()
+        self.quota = 0
+
+    def fill(self, amount):
+        now = datetime.now()
+        if now - self.reset_time > self.period_delta:
+            self.quota = 0
+            self.reset_time = now
+        self.quota += amount
+        return True
+
+    def deduct(self, amount):
+        now = datetime.now()
+        if now - self.reset_time > self.period_delta:
+            raise ValueError("소비할 수 있는 기간이 지났습니다.")
+        if self.quota - amount < 0:
+            raise ValueError("버킷에 할당량이 부족합니다.")
+        self.quota -= amount
+        return True
+
+
+bucket = Bucket(1)
+bucket.fill(100)
+bucket.deduct(90)
