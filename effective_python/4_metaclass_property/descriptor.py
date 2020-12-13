@@ -37,28 +37,28 @@ class Exam:
 '''
 
 # class Grade:
-# def __init__(self):
-# self._value = 0
-
-# def __get__(self, instance, instance_type):
+#     def __init__(self):
+#         self._value = 0
+#
+#     def __get__(self, instance, instance_type):
 # """
 # 이 예제에서 instance는 Exam을 객체이고, instance_type은 Exam 클래스이다.
 # """
-# return self._value
-
-# def __set__(self, instance, value):
-# if not (0 <= value <= 100):
-# raise ValueError('Grade must be between 0 and 100')
-# self._value = value
-
-# def __delete__(self, instance):
-# pass
-
-# class Exam:
-# # 클래스 속성
-# math_grade = Grade()
-# writing_grade = Grade()
-# science_grade = Grade()
+#     return self._value
+#
+#     def __set__(self, instance, value):
+#         if not (0 <= value <= 100):
+#             raise ValueError('Grade must be between 0 and 100')
+#         self._value = value
+#
+#     def __delete__(self, instance):
+#         pass
+#
+#     class Exam:
+#         # 클래스 속성
+#         math_grade = Grade()
+#         writing_grade = Grade()
+#         science_grade = Grade()
 
 '''
 저자는 디스크립터에 대한 정의를 약하게 가져갔다. 일반적으로 디스크립터란 행위를 바인딩하는 객체 속성으로 사용된다. 속성 접근이 디스크립터 프로토콜 메소드에 의해 오버라이드된다.

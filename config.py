@@ -1,0 +1,1 @@
+HOST_URL = 'http://aimmo.co.kr'
