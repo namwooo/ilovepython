@@ -3,8 +3,9 @@ from unittest.mock import Mock, patch
 
 import pytest
 import requests
-from requests import Response, HTTPError
+from requests import Response, HTTPError, ConnectionError
 
+# from config import HOST_URL
 from config import HOST_URL
 
 
@@ -95,8 +96,8 @@ def response_500():
 #         with pytest.raises(HTTPError):
 #             response = trait.report()
 #         assert False is trait.reported
-#
 
+#
 # def test_trait_report_connection_error(trait):
 #     with mock.patch('requests.post', side_effect=ConnectionError):
 #         with pytest.raises(ValueError):
@@ -124,10 +125,17 @@ def response_500():
 #     with pytest.raises(ValueError):
 #         response = trait.report()
 
+# # patch location
+# @patch(f'{__name__}.HOST_URL', 'http://aimmo2.co.kr')
+# def test_trait_report_200(trait):
+#     with pytest.raises(ValueError):
+#         response = trait.report()
+
+
 
 if __name__ == '__main__':
     # spec & spec_set
-    trait_mock = Mock(spec=Trait(name='남우'))
+    # trait_mock = Mock(spec=Trait(name='남우'))
     trait_mock = Mock(spec_set=Trait(name='남우'))
 
 
