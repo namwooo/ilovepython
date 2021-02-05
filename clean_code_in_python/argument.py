@@ -1,3 +1,6 @@
+from mlops_utils import get_workspace
+
+
 def my_func(arg):
     print(f'id of arg before calculation: {id(arg)}')
     arg += " in function"
@@ -12,6 +15,7 @@ def my_func2(a, b, c):
 
 
 if __name__ == '__main__':
+    get_workspace()
     test_str = 'test'
     print(f'id of test_str: {id(test_str)}')
     my_func(test_str)
