@@ -135,8 +135,7 @@ def response_500():
 
 if __name__ == '__main__':
     # spec & spec_set
-    # trait_mock = Mock(spec=Trait(name='남우'))
-    trait_mock = Mock(spec_set=Trait(name='남우'))
+    # trait_mock = Mock(spec=Trait(name='남우'))ft T.    trait_mock = Mock(spec_set=Trait(name='남우'))
 
 
     def mocked():
